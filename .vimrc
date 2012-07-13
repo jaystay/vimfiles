@@ -15,6 +15,8 @@ function! Cursors()
 endfunction
 
 set number
+nnoremap <leader>n :set nonumber!<CR>
+
 syntax on
 
 " Whitespace stuff
@@ -38,7 +40,7 @@ set ignorecase
 set smartcase
 
 " Writing
-set clipboard+=unnamed    " yank to system clipboard
+" set clipboard+=unnamed    " yank to system clipboard
 
 " Filename Tab completion 
 set wildmode=list:longest,list:full
@@ -76,6 +78,7 @@ map <D-S-[> gT
 " remove toolbar on macvim gui
 if has("gui_running")
   set guioptions-=T
+  colorscheme desert
   " set autochdir "this is annoying
 endif
 
