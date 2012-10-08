@@ -21,6 +21,7 @@ syntax on
 
 " Whitespace stuff
 set nowrap
+nnoremap <leader>w :set wrap!<CR>
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
@@ -66,9 +67,9 @@ map <Leader>a ggVG
 
 " folding
 " map <Leader>ft zfat  " fold tag " this doesn't work with foldmethod=syntax TODO - figure out how to get these two to work together
-set foldmethod=syntax
-set foldnestmax=5
-autocmd BufEnter * exe "normal zR"
+"set foldmethod=syntax
+"set foldnestmax=5
+"autocmd BufEnter * exe "normal zR"
 
 
 " tab navigation
@@ -78,7 +79,7 @@ map <D-S-[> gT
 " remove toolbar on macvim gui
 if has("gui_running")
   set guioptions-=T
-  colorscheme desert
+  colorscheme zellner 
   " set autochdir "this is annoying
 endif
 
@@ -91,4 +92,12 @@ nnoremap <space><space> :w<cr>
 
 " Use double-leader to jump to last file
 nnoremap <leader><leader> <c-^>
+
+" exuberant ctags
+set tags=~/.vim/mytags/php-webapi
+"nnoremap <silent> <leader>t :<C-u>silent !php-webapi-tags.sh<CR><CR> 
+map <leader>t :!php-webapi-tags.sh<CR> 
+
+" remap tab completion to command space
+inoremap <c-space> <c-n>
 
