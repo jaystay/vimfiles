@@ -66,10 +66,8 @@ noremap <S-down> :source ~/.vimrc<CR> :b#<CR>
 map <Leader>a ggVG
 
 " folding
-" map <Leader>ft zfat  " fold tag " this doesn't work with foldmethod=syntax TODO - figure out how to get these two to work together
-"set foldmethod=syntax
-"set foldnestmax=5
-"autocmd BufEnter * exe "normal zR"
+map <Leader>fi :set foldmethod=indent<CR>
+map <Leader>fs :set foldmethod=syntax<CR>
 
 
 " tab navigation
@@ -96,7 +94,10 @@ nnoremap <leader><leader> <c-^>
 " exuberant ctags
 set tags=~/.vim/mytags/php-webapi
 "nnoremap <silent> <leader>t :<C-u>silent !php-webapi-tags.sh<CR><CR> 
-map <leader>t :!php-webapi-tags.sh<CR> 
+map <leader>tg :!php-webapi-tags.sh<CR> 
+
+let Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8/bin/ctags'
+map <leader>fl :TlistToggle<CR>
 
 " remap tab completion to command space
 inoremap <c-space> <c-n>
