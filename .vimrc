@@ -30,6 +30,8 @@ set expandtab
 set listchars=tab:▸\ ,eol:¶,trail:·,extends:¬
 set smartindent
 set autoindent
+set cindent
+filetype on
 filetype indent on
 filetype plugin on
 nmap <leader>l :set list!<CR>
