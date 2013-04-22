@@ -90,8 +90,6 @@ if has("gui_running")
 
   "let schemes = ['zellner','ron','morning','murphy','peachpuff','torte']
   
-  " why, oh why can't I pass a variable into the colorscheme function?  
-  " Ok, doing it this way instead!
   function! SwitchScheme()
     if s:currscheme == 0
       colorscheme ron 
@@ -131,8 +129,10 @@ nnoremap <space><space> :w<cr>
 nnoremap <leader><leader> <c-^>
 
 " exuberant ctags
-set tags=~/.vim/mytags/php-webapi
-map <leader>tg :!php-webapi-tags.sh<CR> 
+" set tags=~/.vim/mytags/php-webapi
+" map <leader>tg :!php-webapi-tags.sh<CR> 
+set tags=tags
+map <leader>tg :!./tags.sh<CR> 
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <Leader>\ :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
@@ -142,4 +142,8 @@ map <leader>fl :TlistToggle<CR>
 " remap tab completion to command space
 inoremap <c-space> <c-n>
 map <leader>e :CommandT<CR>
+map <leader>ctf :CommandTFlush<CR>
 
+" splits
+set splitbelow
+set splitright

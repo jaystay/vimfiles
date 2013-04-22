@@ -1,2 +1,2 @@
-.vim/mytags
-.vim/.netrwhist*
+*.swp
+.netrwhist*
