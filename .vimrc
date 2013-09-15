@@ -157,3 +157,5 @@ nnoremap <C-H> <C-W><C-H>
 map <leader>oi :JavaImportOrganize<CR>
 map <leader>ren :JavaRename
 
+nmap <leader>v :vertical resize +6<CR>
+nmap <leader>vl :vertical resize -6<CR>
