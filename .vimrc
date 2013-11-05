@@ -1,6 +1,20 @@
 set nocompatible
 set noswapfile
-call pathogen#infect()
+
+filetype off                  " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'vim-scripts/Emmet.vim'
+Bundle 'wincent/Command-T'
+Bundle 'mileszs/ack.vim'
 
 " Leader
 let mapleader = ","
@@ -8,13 +22,6 @@ let mapleader = ","
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v]\ [%p%%]\ [LEN=%L]
 set laststatus=2
 set showcmd
-
-nmap <leader>c :call Cursors()<CR>
-
-function! Cursors()
-  set cursorline!
-  set cursorcolumn!
-endfunction
 
 set number
 nnoremap <leader>n :set nonumber!<CR>
@@ -44,26 +51,20 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-
-" Writing
-" set clipboard+=unnamed    " yank to system clipboard
+" clear highlighting
+nmap <leader>h :noh<return>
 
 " Filename Tab completion 
 set wildmode=list:longest,list:full
 set wildmenu
 
 " File navigation
-" trying to decide between NERDTree and FuzzyFinder
-nmap <leader>ff :FufFile **/<CR>
-nmap <leader>fb :FufBuffer<CR>
 map <Leader>r :NERDTreeToggle<CR>  
+let NERDTreeShowHidden=1
 
 " scrolling
 :nnoremap <Leader>zz :let &scrolloff=12-&scrolloff<CR>
 :nnoremap <Leader>zx :let &scrolloff=99999-&scrolloff<CR>
-
-" auto source 
-" au BufWritePost .vimrc so ~/.vimrc
 
 " list and choose buffers easily 
 nmap <leader>b :ls<CR>:buffer<Space>
@@ -132,15 +133,18 @@ nnoremap <leader><leader> <c-^>
 " exuberant ctags
 " set tags=~/.vim/mytags/php-webapi
 " map <leader>tg :!php-webapi-tags.sh<CR> 
-set tags=tags
-map <leader>tg :!./tags.sh<CR> 
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-map <Leader>\ :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-let Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8/bin/ctags'
-map <leader>fl :TlistToggle<CR>
+" TODO
+"set tags=tags
+"map <leader>tg :!./tags.sh<CR> 
+"map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+"map <Leader>\ :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-" remap tab completion to command space
+" TODO
+"let Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8/bin/ctags'
+"map <leader>fl :TlistToggle<CR>
+
+" remap tab completion to control space
 inoremap <c-space> <c-n>
 map <leader>e :CommandT<CR>
 map <leader>ctf :CommandTFlush<CR>

@@ -4,7 +4,7 @@
 "
 " License:
 "
-" Copyright (C) 2005 - 2012  Eric Van Dewoestine
+" Copyright (C) 2005 - 2013  Eric Van Dewoestine
 "
 " This program is free software: you can redistribute it and/or modify
 " it under the terms of the GNU General Public License as published by
@@ -27,11 +27,24 @@ if !exists("g:EclimCValidate")
   let g:EclimCValidate = 1
 endif
 
+if !exists("g:EclimCSyntasticEnabled")
+  let g:EclimCSyntasticEnabled = 0
+endif
+
+if !exists('g:EclimCCallHierarchyDefaultAction')
+  let g:EclimCCallHierarchyDefaultAction = g:EclimDefaultFileOpenAction
+endif
+
 " }}}
 
 " Options {{{
 
-setlocal completefunc=eclim#c#complete#CodeComplete
+exec 'setlocal ' . g:EclimCompletionMethod . '=eclim#c#complete#CodeComplete'
+
+" disable syntastic
+if exists('g:loaded_syntastic_plugin') && !g:EclimCSyntasticEnabled
+  let g:syntastic_c_checkers = []
+endif
 
 " }}}
 
@@ -39,8 +52,7 @@ setlocal completefunc=eclim#c#complete#CodeComplete
 
 augroup eclim_c
   autocmd! BufWritePost <buffer>
-  autocmd BufWritePost <buffer>
-    \ call eclim#lang#UpdateSrcFile('c', g:EclimCValidate)
+  autocmd BufWritePost <buffer> call eclim#lang#UpdateSrcFile('c')
 augroup END
 
 " }}}
@@ -60,7 +72,9 @@ if !exists(":CSearchContext")
 endif
 
 if !exists(":CCallHierarchy")
-  command -buffer CCallHierarchy :call eclim#c#hierarchy#CallHierarchy()
+  command -buffer -bang CCallHierarchy
+    \ :call eclim#lang#hierarchy#CallHierarchy(
+      \ 'c', g:EclimCCallHierarchyDefaultAction, '<bang>')
 endif
 
 " }}}
