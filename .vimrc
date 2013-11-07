@@ -1,6 +1,11 @@
 set nocompatible
 set noswapfile
-call pathogen#infect()
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+"call pathogen#infect()
+
+"Bundle 'FuzzyFinder'
+Bundle 'git://git.wincent.com/command-t.git'
 
 " Leader
 let mapleader = ","
@@ -80,10 +85,33 @@ map <Leader>a ggVG
 map <Leader>fi :set foldmethod=indent<CR>
 map <Leader>fs :set foldmethod=syntax<CR>
 
+function TabLeft()
+   let tab_number = tabpagenr() - 1
+   if tab_number == 0
+      execute "tabm" tabpagenr('$') - 1
+   else
+      execute "tabm" tab_number - 1
+   endif
+endfunction
+function TabRight()
+   let tab_number = tabpagenr() - 1
+   let last_tab_number = tabpagenr('$') - 1
+   if tab_number == last_tab_number
+      execute "tabm" 0
+   else
+      execute "tabm" tab_number + 1
+   endif
+endfunction
 
 " tab navigation
-map <D-S-]> gt
-map <D-S-[> gT
+"command-shift-] next tab
+map <D-S-]> gt  
+"command-shift=[ previous tab
+map <D-S-[> gT  
+"command-] move tab right
+map <D-]> :execute TabRight()<CR>
+"command-] move tab left
+map <D-[> :execute TabLeft()<CR>
 
 " remove toolbar on macvim gui
 if has("gui_running")
