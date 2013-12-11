@@ -15,6 +15,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/Emmet.vim'
 Bundle 'wincent/Command-T'
 Bundle 'mileszs/ack.vim'
+Bundle 'vim-scripts/ShowMarks'
 
 " Leader
 let mapleader = ","
@@ -72,7 +73,7 @@ nmap <leader>b :ls<CR>:buffer<Space>
 " shift-up edits .vimrc and shift-down sources the file and sends you back to
 " the previous buffer
 noremap <S-up> :e ~/.vimrc<CR>
-noremap <S-down> :source ~/.vimrc<CR> :b#<CR>
+noremap <S-down> :source ~/.vimrc<CR>
 
 " select all
 map <Leader>a ggVG
@@ -81,7 +82,7 @@ map <Leader>a ggVG
 map <Leader>fi :set foldmethod=indent<CR>
 map <Leader>fs :set foldmethod=syntax<CR>
 
-function TabLeft()
+function! TabLeft()
    let tab_number = tabpagenr() - 1
    if tab_number == 0
       execute "tabm" tabpagenr('$') - 1
@@ -89,7 +90,7 @@ function TabLeft()
       execute "tabm" tab_number - 1
    endif
 endfunction
-function TabRight()
+function! TabRight()
    let tab_number = tabpagenr() - 1
    let last_tab_number = tabpagenr('$') - 1
    if tab_number == last_tab_number
@@ -186,3 +187,6 @@ map <leader>ren :JavaRename
 
 nmap <leader>v :vertical resize +6<CR>
 nmap <leader>vl :vertical resize -6<CR>
+
+" showmarks
+let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
