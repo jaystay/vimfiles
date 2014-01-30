@@ -1,5 +1,6 @@
 set nocompatible
 set noswapfile
+set nobackup
 
 filetype off                  " required!
 
@@ -53,7 +54,7 @@ set incsearch
 set ignorecase
 set smartcase
 " clear highlighting
-nmap <leader>h :noh<return>
+nmap <leader>/ :noh<return>
 
 " Filename Tab completion 
 set wildmode=list:longest,list:full
