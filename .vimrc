@@ -191,3 +191,6 @@ nmap <leader>vl :vertical resize -6<CR>
 
 " showmarks
 let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+" file types
+au BufRead,BufNewFile *.twig set filetype=html
