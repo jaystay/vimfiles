@@ -13,10 +13,12 @@ Bundle 'gmarik/vundle'
 
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
 Bundle 'vim-scripts/Emmet.vim'
 Bundle 'wincent/Command-T'
 Bundle 'mileszs/ack.vim'
 Bundle 'vim-scripts/ShowMarks'
+Bundle 'Rip-Rip/clang_complete'
 
 " Leader
 let mapleader = ","
@@ -32,10 +34,11 @@ syntax on
 
 " Whitespace stuff
 set wrap
+set linebreak
 nnoremap <leader>w :set wrap!<CR>
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 set listchars=tab:▸\ ,eol:¶,trail:·,extends:¬
 set smartindent
@@ -45,7 +48,10 @@ filetype on
 filetype indent on
 filetype plugin on
 nmap <leader>l :set list!<CR>
-			
+
+" auto format
+"autocmd BufRead,BufWritePre *.php normal gg=G 
+
 set encoding=utf-8
 
 " Searching
@@ -84,21 +90,21 @@ map <Leader>fi :set foldmethod=indent<CR>
 map <Leader>fs :set foldmethod=syntax<CR>
 
 function! TabLeft()
-   let tab_number = tabpagenr() - 1
-   if tab_number == 0
-      execute "tabm" tabpagenr('$') - 1
-   else
-      execute "tabm" tab_number - 1
-   endif
+  let tab_number = tabpagenr() - 1
+  if tab_number == 0
+    execute "tabm" tabpagenr('$') - 1
+  else
+    execute "tabm" tab_number - 1
+  endif
 endfunction
 function! TabRight()
-   let tab_number = tabpagenr() - 1
-   let last_tab_number = tabpagenr('$') - 1
-   if tab_number == last_tab_number
-      execute "tabm" 0
-   else
-      execute "tabm" tab_number + 1
-   endif
+  let tab_number = tabpagenr() - 1
+  let last_tab_number = tabpagenr('$') - 1
+  if tab_number == last_tab_number
+    execute "tabm" 0
+  else
+    execute "tabm" tab_number + 1
+  endif
 endfunction
 
 " tab navigation
@@ -115,8 +121,6 @@ map <D-[> :execute TabLeft()<CR>
 if has("gui_running")
   set guioptions-=T
 
-  "let schemes = ['zellner','ron','morning','murphy','peachpuff','torte']
-  
   function! SwitchScheme()
     if s:currscheme == 0
       colorscheme ron 
@@ -134,11 +138,14 @@ if has("gui_running")
       colorscheme torte 
       let s:currscheme = 5
     elseif s:currscheme == 5
+      colorscheme darkblue 
+      let s:currscheme = 6
+    elseif s:currscheme == 6
       colorscheme zellner 
       let s:currscheme = 0
     endif
   endfunction
-    
+
   let s:currscheme = 0
   colorscheme zellner 
   nmap <leader>sc :call SwitchScheme()<CR>
@@ -194,3 +201,22 @@ let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 " file types
 au BufRead,BufNewFile *.twig set filetype=html
+
+" clang_complete stuff
+
+let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
+let g:clang_snippets = 1
+
+" SYNTASTIC stuff
+
+" Show sidebar signs.
+let g:syntastic_enable_signs=1
+" Tell it to use clang instead of gcc
+let g:syntastic_objc_compiler = 'clang'
+let g:syntastic_objc_check_header = 1
+
+" Read the clang complete file
+let g:syntastic_objc_config_file = '.clang_complete'
+
+" Tell it to use clang instead of gcc
+let g:syntastic_objc_checker = 'clang'
