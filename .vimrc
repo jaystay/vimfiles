@@ -194,3 +194,6 @@ let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 " file types
 au BufRead,BufNewFile *.twig set filetype=html
+
+" ask for passwords for system files
+cmap w!! %!sudo tee > /dev/null %
