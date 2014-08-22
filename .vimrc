@@ -68,6 +68,7 @@ set wildmenu
 
 " File navigation
 map <Leader>r :NERDTreeToggle<CR>  
+map <Leader>rm :NERDTreeMirror<CR>  
 let NERDTreeShowHidden=1
 
 " scrolling
@@ -123,7 +124,7 @@ if has("gui_running")
 
   function! SwitchScheme()
     if s:currscheme == 0
-      colorscheme ron 
+      colorscheme darkblue 
       let s:currscheme = 1
     elseif s:currscheme == 1
       colorscheme morning 
@@ -138,7 +139,7 @@ if has("gui_running")
       colorscheme torte 
       let s:currscheme = 5
     elseif s:currscheme == 5
-      colorscheme darkblue 
+      colorscheme ron 
       let s:currscheme = 6
     elseif s:currscheme == 6
       colorscheme zellner 
