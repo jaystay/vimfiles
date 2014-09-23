@@ -19,6 +19,8 @@ Bundle 'wincent/Command-T'
 Bundle 'mileszs/ack.vim'
 Bundle 'vim-scripts/ShowMarks'
 Bundle 'Rip-Rip/clang_complete'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'edsono/vim-matchit'
 
 " Leader
 let mapleader = ","
