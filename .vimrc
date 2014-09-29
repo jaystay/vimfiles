@@ -21,6 +21,7 @@ Bundle 'vim-scripts/ShowMarks'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'edsono/vim-matchit'
+Bundle 'vim-scripts/camelcasemotion'
 
 " Leader
 let mapleader = ","
@@ -51,8 +52,10 @@ filetype indent on
 filetype plugin on
 nmap <leader>l :set list!<CR>
 
-" auto format
-"autocmd BufRead,BufWritePre *.php normal gg=G 
+augroup SmallTabCmds
+    autocmd!
+    autocmd Filetype sass setlocal tabstop=2 shiftwidth=2 softtabstop=2
+augroup END
 
 set encoding=utf-8
 
@@ -181,7 +184,7 @@ nnoremap <leader><leader> <c-^>
 
 " remap tab completion to control space
 inoremap <c-space> <c-n>
-map <leader>e :CommandT<CR>
+map <leader>t :CommandT<CR>
 map <leader>ctf :CommandTFlush<CR>
 
 " splits
@@ -226,3 +229,5 @@ let g:syntastic_objc_config_file = '.clang_complete'
 
 " Tell it to use clang instead of gcc
 let g:syntastic_objc_checker = 'clang'
+
+
