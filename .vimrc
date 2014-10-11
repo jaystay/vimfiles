@@ -22,6 +22,7 @@ Bundle 'Rip-Rip/clang_complete'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'edsono/vim-matchit'
 Bundle 'vim-scripts/camelcasemotion'
+Bundle 'Lokaltog/vim-easymotion'
 
 " Leader
 let mapleader = ","
@@ -29,6 +30,8 @@ let mapleader = ","
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v]\ [%p%%]\ [LEN=%L]
 set laststatus=2
 set showcmd
+
+set undofile
 
 set number
 nnoremap <leader>n :set nonumber!<CR>
@@ -165,26 +168,13 @@ nnoremap <space> :
 " Use double-<space> to save the file
 nnoremap <space><space> :w<cr>
 
-" Use double-leader to jump to last file
-nnoremap <leader><leader> <c-^>
-
-" exuberant ctags
-" set tags=~/.vim/mytags/php-webapi
-" map <leader>tg :!php-webapi-tags.sh<CR> 
-
-" TODO
-"set tags=tags
-"map <leader>tg :!./tags.sh<CR> 
-"map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-"map <Leader>\ :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-
-" TODO
-"let Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8/bin/ctags'
-"map <leader>fl :TlistToggle<CR>
+" jump to last file
+nnoremap <leader><leader><leader> <c-^>
 
 " remap tab completion to control space
 inoremap <c-space> <c-n>
 map <leader>t :CommandT<CR>
+imap <leader>t <ESC>:CommandT<CR>
 map <leader>ctf :CommandTFlush<CR>
 
 " splits
