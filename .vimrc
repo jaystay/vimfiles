@@ -23,6 +23,9 @@ Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'edsono/vim-matchit'
 Bundle 'vim-scripts/camelcasemotion'
 Bundle 'Lokaltog/vim-easymotion'
+Bundle 'tobyS/vmustache'
+Bundle 'tobyS/pdv'
+Bundle 'SirVer/ultisnips'
 
 " Leader
 let mapleader = ","
@@ -220,4 +223,6 @@ let g:syntastic_objc_config_file = '.clang_complete'
 " Tell it to use clang instead of gcc
 let g:syntastic_objc_checker = 'clang'
 
-
+" phpdocs
+let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
+nnoremap <leader>p :call pdv#DocumentWithSnip()<CR>
