@@ -26,6 +26,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'tobyS/vmustache'
 Bundle 'tobyS/pdv'
 Bundle 'SirVer/ultisnips'
+Bundle 'terryma/vim-multiple-cursors'
 
 " Leader
 let mapleader = ","
