@@ -28,6 +28,8 @@ Bundle 'tobyS/pdv'
 Bundle 'SirVer/ultisnips'
 Bundle 'terryma/vim-multiple-cursors'
 
+let g:UltiSnipsExpandTrigger = "<c-t>"
+
 " Leader
 let mapleader = ","
 
@@ -130,6 +132,18 @@ map <D-]> :execute TabRight()<CR>
 "command-] move tab left
 map <D-[> :execute TabLeft()<CR>
 
+" autocomplete
+function! InsertTabWrapper()
+    let col = col(".") - 1
+    if !col || getline(".")[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-n>"
+endfunction
+
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-p>
+
 " remove toolbar on macvim gui
 if has("gui_running")
   set guioptions-=T
@@ -227,3 +241,4 @@ let g:syntastic_objc_checker = 'clang'
 " phpdocs
 let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
 nnoremap <leader>p :call pdv#DocumentWithSnip()<CR>
+
