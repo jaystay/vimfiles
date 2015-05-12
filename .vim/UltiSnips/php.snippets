@@ -1,0 +1,131 @@
+snippet hasm "Eloquent hasMany()" b
+public function $1()
+{
+	return $this->hasMany('App\\$2');
+}
+endsnippet
+	
+snippet belto "Eloquent belongsTo()" b
+public function $1()
+{
+	return $this->belongsTo('App\\$2');
+}
+endsnippet
+
+snippet haso "Eloquent hasOne()" b
+public function $1()
+{
+	return $this->hasOne('App\\$2');
+}
+endsnippet
+
+snippet beltom "Eloquent belongsToMany" b
+public function $1()
+{
+	return $this->belongsToMany('App\\$2');
+}
+endsnippet
+
+snippet elre "Comment denoting Eloquent relations" b
+/*** ELOQUENT RELATIONS ***/
+
+$0
+
+/**************************/
+endsnippet
+
+snippet elsco "Comment denoting Eloquent query scopes" b
+/****** QUERY SCOPES ******/
+
+$0
+
+/**************************/
+endsnippet
+
+snippet elacc "Comment denoting Eloquent accessors" b
+/******* ACCESSORS ********/
+
+$0
+
+/**************************/
+endsnippet
+
+snippet elmut "Comment denoting Eloquent mutators" b
+/******** MUTATORS ********/
+
+$0
+
+/**************************/
+endsnippet
+
+snippet qsco "Eloquent query scope" b
+public function scope$1($query)
+{
+	return $query->$2;
+}
+endsnippet
+
+snippet blex "Blade extends template" b
+@extends('$1')
+
+@section(${2:'content'})
+$0
+@stop
+endsnippet
+
+snippet formgrp "Create a bootstrap form group" b
+<div class="form-group">
+	{!! Form::label('$1', '$2') !!}
+	{!! Form::${3:text}('$1', null, [ 'class' => 'form-control', 'placeholder' => '${4:$2}' ]) !!}
+</div>
+endsnippet
+
+snippet @if "Blade if/else" b
+@if ($1)
+$0
+@endif
+endsnippet
+
+snippet @fore "Blade foreach" b
+@foreach ($1 as $2)
+$0
+@endforeach
+endsnippet
+
+snippet getatt "Eloquent Attribute Getter" b
+public function get$1Attribute()
+{
+$0
+}
+endsnippet
+
+snippet setatt "Eloquent Attribute Setter" b
+public function set$1Attribute($value)
+{
+	if ($value)
+	{
+		$this->attributes['${1/\w+\s*/\l$0/}'] = $2;
+	}
+}
+endsnippet
+
+snippet sco "Eloquent scope" b
+public function scope$1($query)
+{
+	return $query->$2;
+}
+endsnippet
+
+snippet pf "Public function" b
+public function $1()
+{
+$0
+}
+endsnippet
+
+snippet cons "Constructor" b
+public function __construct($1)
+{
+$0
+}
+endsnippet

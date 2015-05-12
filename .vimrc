@@ -27,8 +27,7 @@ Bundle 'tobyS/vmustache'
 Bundle 'tobyS/pdv'
 Bundle 'SirVer/ultisnips'
 Bundle 'terryma/vim-multiple-cursors'
-
-let g:UltiSnipsExpandTrigger = "<c-t>"
+Bundle 'tpope/vim-abolish'
 
 " Leader
 let mapleader = ","
@@ -47,11 +46,11 @@ syntax on
 " Whitespace stuff
 set wrap
 set linebreak
-nnoremap <leader>w :set wrap!<CR>
+" nnoremap <leader>w :set wrap!<CR>
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set expandtab
+" set expandtab
 set listchars=tab:▸\ ,eol:¶,trail:·,extends:¬
 set smartindent
 set autoindent
@@ -83,6 +82,7 @@ set wildmenu
 " File navigation
 map <Leader>r :NERDTreeToggle<CR>  
 map <Leader>rm :NERDTreeMirror<CR>  
+map <Leader>rf :NERDTreeFind<CR>  
 let NERDTreeShowHidden=1
 
 " scrolling
@@ -90,7 +90,7 @@ let NERDTreeShowHidden=1
 :nnoremap <Leader>zx :let &scrolloff=99999-&scrolloff<CR>
 
 " list and choose buffers easily 
-nmap <leader>b :ls<CR>:buffer<Space>
+" nmap <leader>b :ls<CR>:buffer<Space>
 
 " shift-up edits .vimrc and shift-down sources the file and sends you back to
 " the previous buffer
@@ -141,8 +141,8 @@ function! InsertTabWrapper()
         return "\<c-n>"
 endfunction
 
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-p>
+"inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+"inoremap <s-tab> <c-p>
 
 " remove toolbar on macvim gui
 if has("gui_running")
@@ -191,6 +191,8 @@ nnoremap <leader><leader><leader> <c-^>
 
 " remap tab completion to control space
 inoremap <c-space> <c-n>
+
+let g:CommandTWildIgnore=&wildignore . ",**/node_modules*,**/storage*,**app/storage*"
 map <leader>t :CommandT<CR>
 imap <leader>t <ESC>:CommandT<CR>
 map <leader>ctf :CommandTFlush<CR>
@@ -242,3 +244,9 @@ let g:syntastic_objc_checker = 'clang'
 let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
 nnoremap <leader>p :call pdv#DocumentWithSnip()<CR>
 
+" ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
+map <leader>use :UltiSnipsEdit<CR>
