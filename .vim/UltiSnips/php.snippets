@@ -129,3 +129,19 @@ public function __construct($1)
 $0
 }
 endsnippet
+
+snippet iff "If False Blade" b
+@if (${1:false})
+endsnippet
+
+snippet eff "End If Blade" b
+@endif
+endsnippet
+
+snippet rg "Route::get" b
+Route::get('$1', [ 'as' => '$2', 'uses' => '$3' ]);
+endsnippet
+
+snippet rp "Route::post" b
+Route::post('$1', [ 'as' => '$2', 'uses' => '$3' ]);
+endsnippet

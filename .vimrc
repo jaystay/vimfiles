@@ -28,6 +28,7 @@ Bundle 'tobyS/pdv'
 Bundle 'SirVer/ultisnips'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-abolish'
+Bundle 'groenewege/vim-less'
 
 " Leader
 let mapleader = ","
@@ -74,6 +75,9 @@ set ignorecase
 set smartcase
 " clear highlighting
 nmap <leader>/ :noh<return>
+
+" ack the word under cursor
+nmap <leader>* byw:Ack <C-R>"<CR>
 
 " Filename Tab completion 
 set wildmode=list:longest,list:full
