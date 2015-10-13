@@ -30,6 +30,7 @@ Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-abolish'
 Bundle 'groenewege/vim-less'
 
+
 " Leader
 let mapleader = ","
 
@@ -137,6 +138,8 @@ map <D-]> :execute TabRight()<CR>
 map <D-[> :execute TabLeft()<CR>
 
 " autocomplete
+" set iskeyword+=-
+"set completeopt=longest,menu
 function! InsertTabWrapper()
     let col = col(".") - 1
     if !col || getline(".")[col - 1] !~ '\k'
@@ -227,22 +230,22 @@ cmap w!! %!sudo tee > /dev/null %
 
 
 " clang_complete stuff
-let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
-let g:clang_snippets = 1
+"let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
+"let g:clang_snippets = 1
 
 " SYNTASTIC stuff
 
 " Show sidebar signs.
-let g:syntastic_enable_signs=1
+"let g:syntastic_enable_signs=1
 " Tell it to use clang instead of gcc
-let g:syntastic_objc_compiler = 'clang'
-let g:syntastic_objc_check_header = 1
-
+"let g:syntastic_objc_compiler = 'clang'
+"let g:syntastic_objc_check_header = 1
+"
 " Read the clang complete file
-let g:syntastic_objc_config_file = '.clang_complete'
-
+"let g:syntastic_objc_config_file = '.clang_complete'
+"
 " Tell it to use clang instead of gcc
-let g:syntastic_objc_checker = 'clang'
+"let g:syntastic_objc_checker = 'clang'
 
 " phpdocs
 let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"

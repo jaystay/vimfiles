@@ -1,3 +1,47 @@
+####################################
+# PHP
+####################################
+snippet p "PHP opening tag" b
+<?php $1
+
+$2
+endsnippet
+
+snippet pc "PHP Class" b
+<?php $1
+
+class $2 {
+
+	$3
+
+}
+endsnippet
+
+snippet pf "Public function" b
+public function $1()
+{
+$0
+}
+endsnippet
+
+snippet prf "Private function" b
+private function $1()
+{
+$0
+}
+endsnippet
+
+snippet cons "Constructor" b
+public function __construct($1 $$2)
+{
+	$this->$2 = $$2;
+}
+endsnippet
+
+
+####################################
+# Eloquent
+####################################
 snippet hasm "Eloquent hasMany()" b
 public function $1()
 {
@@ -65,33 +109,6 @@ public function scope$1($query)
 }
 endsnippet
 
-snippet blex "Blade extends template" b
-@extends('$1')
-
-@section(${2:'content'})
-$0
-@stop
-endsnippet
-
-snippet formgrp "Create a bootstrap form group" b
-<div class="form-group">
-	{!! Form::label('$1', '$2') !!}
-	{!! Form::${3:text}('$1', null, [ 'class' => 'form-control', 'placeholder' => '${4:$2}' ]) !!}
-</div>
-endsnippet
-
-snippet @if "Blade if/else" b
-@if ($1)
-$0
-@endif
-endsnippet
-
-snippet @fore "Blade foreach" b
-@foreach ($1 as $2)
-$0
-@endforeach
-endsnippet
-
 snippet getatt "Eloquent Attribute Getter" b
 public function get$1Attribute()
 {
@@ -116,18 +133,55 @@ public function scope$1($query)
 }
 endsnippet
 
-snippet pf "Public function" b
-public function $1()
-{
+####################################
+# Blade/html/css
+####################################
+snippet blex "Blade extends template" b
+@extends('$1')
+
+@section(${2:'content'})
 $0
-}
+@stop
 endsnippet
 
-snippet cons "Constructor" b
-public function __construct($1)
-{
+snippet bsfg "Create a bootstrap form group" b
+<div class="form-group">
+	{!! Form::label('$1', '$2') !!}
+	{!! Form::${3:text}('$1', null, [ 'class' => 'form-control', 'placeholder' => '${4:$2}' ]) !!}
+</div>
+endsnippet
+
+snippet mf "Create a bootstrap model form" b
+{!! Form::model($$1, [ 'route' => '$1.store', 'class' => 'form-horizontal' ]) !!}
+
+<div class="form-group">
+	<label class="col-md-4 control-label">Device code</label>
+	<div class="col-md-6">
+		<input type="text" class="form-control" name="$2" value="{{ old('$2') }}">
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-6 col-md-offset-4">
+			<button type="submit" class="btn btn-primary">
+				Submit
+			</button>
+		</div>
+	</div>
+</div>
+
+{!! Form::close() !!}
+endsnippet
+
+snippet @if "Blade if/else" b
+@if ($1)
 $0
-}
+@endif
+endsnippet
+
+snippet @fore "Blade foreach" b
+@foreach ($1 as $2)
+$0
+@endforeach
 endsnippet
 
 snippet iff "If False Blade" b
@@ -138,10 +192,186 @@ snippet eff "End If Blade" b
 @endif
 endsnippet
 
+snippet inc "Blade include" b
+@include('$1')
+endsnippet
+
+snippet bootsm "Bootstrap modal" b
+<div class="modal fade" id="$1" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+endsnippet
+
+snippet bootsn "Bootstrap navbar" b
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Domum</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+				<li><a href="#">Link</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">One more separated link</a></li>
+					</ul>
+				</li>
+			</ul>
+			<p class="navbar-text navbar-right">
+				Welcome, Guest
+			</p>
+		</div>
+	</div>
+</nav>
+endsnippet
+
+
+####################################
+# Routing
+####################################
 snippet rg "Route::get" b
 Route::get('$1', [ 'as' => '$2', 'uses' => '$3' ]);
 endsnippet
 
 snippet rp "Route::post" b
 Route::post('$1', [ 'as' => '$2', 'uses' => '$3' ]);
+endsnippet
+
+snippet rr "Route::resource" b
+Route::resource('$1', '$2Controller', [ 'except' => [ ] ] );
+endsnippet
+
+snippet rougr "Route Group" b
+Route::group([$1], function() {
+	$2
+});
+endsnippet
+
+
+####################################
+# Laravel administrator
+####################################
+snippet laf "Laravel Admin Field" b
+'$1' => [
+	'title' => '$2',
+	'type' => '$3',
+	'editable' => true
+],
+endsnippet
+
+snippet larf "Laravel Admin Relationship Field" b
+'$1' => [
+	'title' => '$2',
+	'type' => 'relationship',
+	'name_field' => '$3',
+	'options_sort_field' => '$4',
+
+],
+endsnippet
+
+snippet lam "Laravel Admin Model" b
+<?php 
+
+return [
+  'title' => '$1',
+  'single' => '$2',
+  'model' => 'App\\$3',
+  'form_width' => 700,
+
+  'rules' => [
+  ],
+
+  'messages' => [
+  ],
+
+
+//  'action_permissions'=> array(
+//	  'delete' => function($model)
+//	  {
+//		  return Auth::user()->has_role('developer');
+//	  }
+//  ),
+
+//  'actions' => [
+//    'action_name' => [
+//        'title' => '',
+//        'messages' => [
+//            'active' => 'Working..',
+//            'success' => 'Done',
+//            'error' => 'There was an error while',
+//        ],
+//        //the model is passed to the closure
+//        'action' => function($model) {
+//
+//			return true;
+//       }
+//    ],
+//   ],
+
+// 'filters' => [
+//	  'field' => [
+//		  'title' => 'Title',
+//	  ],
+// ],
+
+  'columns' => [ 
+
+	'id' => [
+	  'title' => 'ID',
+	],
+
+  ],
+
+  'edit_fields' => [
+
+	  'name' => [
+	  	'title' => 'Name',
+	  	'type' => 'text',
+	  	'editable' => true
+	  ],
+  ],
+];
+endsnippet
+
+####################################
+# General Laravel
+####################################
+snippet lpr "Laravel Log and print_r" b
+\Log::info(print_r($1, true));
+endsnippet
+
+snippet rv "Return view" b
+return view('$1');
+endsnippet
+
+snippet rvc "Return view with data" b
+return view('$1', compact($2));
 endsnippet
