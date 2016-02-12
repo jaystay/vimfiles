@@ -1,35 +1,8 @@
-set nocompatible
+set nocompatible                " use latest vim settings, not vi
 set noswapfile
 set nobackup
 
-filetype off                  " required!
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
-
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'vim-scripts/Emmet.vim'
-Bundle 'wincent/Command-T'
-Bundle 'mileszs/ack.vim'
-Bundle 'vim-scripts/ShowMarks'
-Bundle 'Rip-Rip/clang_complete'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'edsono/vim-matchit'
-Bundle 'vim-scripts/camelcasemotion'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'tobyS/vmustache'
-Bundle 'tobyS/pdv'
-Bundle 'SirVer/ultisnips'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'tpope/vim-abolish'
-Bundle 'groenewege/vim-less'
-
+so ~/.vim/plugins.vim
 
 " Leader
 let mapleader = ","
@@ -40,26 +13,21 @@ set showcmd
 
 set undofile
 
-set number
-nnoremap <leader>n :set nonumber!<CR>
 
 syntax on
 
 " Whitespace stuff
 set wrap
-set linebreak
+"set linebreak
 " nnoremap <leader>w :set wrap!<CR>
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-" set expandtab
+set expandtab
 set listchars=tab:▸\ ,eol:¶,trail:·,extends:¬
 set smartindent
 set autoindent
 set cindent
-filetype on
-filetype indent on
-filetype plugin on
 nmap <leader>l :set list!<CR>
 
 augroup SmallTabCmds
@@ -69,13 +37,6 @@ augroup END
 
 set encoding=utf-8
 
-" Searching
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-" clear highlighting
-nmap <leader>/ :noh<return>
 
 " ack the word under cursor
 nmap <leader>* byw:Ack <C-R>"<CR>
@@ -83,12 +44,6 @@ nmap <leader>* byw:Ack <C-R>"<CR>
 " Filename Tab completion 
 set wildmode=list:longest,list:full
 set wildmenu
-
-" File navigation
-map <Leader>r :NERDTreeToggle<CR>  
-map <Leader>rm :NERDTreeMirror<CR>  
-map <Leader>rf :NERDTreeFind<CR>  
-let NERDTreeShowHidden=1
 
 " scrolling
 :nnoremap <Leader>zz :let &scrolloff=12-&scrolloff<CR>
@@ -152,39 +107,39 @@ endfunction
 "inoremap <s-tab> <c-p>
 
 " remove toolbar on macvim gui
-if has("gui_running")
-  set guioptions-=T
+"if has("gui_running")
+  "set guioptions-=T
 
-  function! SwitchScheme()
-    if s:currscheme == 0
-      colorscheme darkblue 
-      let s:currscheme = 1
-    elseif s:currscheme == 1
-      colorscheme morning 
-      let s:currscheme = 2
-    elseif s:currscheme == 2
-      colorscheme murphy 
-      let s:currscheme = 3
-    elseif s:currscheme == 3
-      colorscheme peachpuff 
-      let s:currscheme = 4
-    elseif s:currscheme == 4
-      colorscheme torte 
-      let s:currscheme = 5
-    elseif s:currscheme == 5
-      colorscheme ron 
-      let s:currscheme = 6
-    elseif s:currscheme == 6
-      colorscheme zellner 
-      let s:currscheme = 0
-    endif
-  endfunction
+  "function! SwitchScheme()
+    "if s:currscheme == 0
+      "colorscheme darkblue 
+      "let s:currscheme = 1
+    "elseif s:currscheme == 1
+      "colorscheme morning 
+      "let s:currscheme = 2
+    "elseif s:currscheme == 2
+      "colorscheme murphy 
+      "let s:currscheme = 3
+    "elseif s:currscheme == 3
+      "colorscheme peachpuff 
+      "let s:currscheme = 4
+    "elseif s:currscheme == 4
+      "colorscheme torte 
+      "let s:currscheme = 5
+    "elseif s:currscheme == 5
+      "colorscheme ron 
+      "let s:currscheme = 6
+    "elseif s:currscheme == 6
+      "colorscheme zellner 
+      "let s:currscheme = 0
+    "endif
+  "endfunction
 
-  let s:currscheme = 0
-  colorscheme zellner 
-  nmap <leader>sc :call SwitchScheme()<CR>
+  "let s:currscheme = 0
+  "colorscheme zellner 
+  "nmap <leader>sc :call SwitchScheme()<CR>
 
-endif
+"endif
 
 
 " remap : to space
@@ -193,24 +148,8 @@ nnoremap <space> :
 " Use double-<space> to save the file
 nnoremap <space><space> :w<cr>
 
-" jump to last file
-nnoremap <leader><leader><leader> <c-^>
-
 " remap tab completion to control space
 inoremap <c-space> <c-n>
-
-let g:CommandTWildIgnore=&wildignore . ",**/node_modules*,**/storage*,**app/storage*"
-map <leader>t :CommandT<CR>
-imap <leader>t <ESC>:CommandT<CR>
-map <leader>ctf :CommandTFlush<CR>
-
-" splits
-set splitbelow
-set splitright
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
 "eclim
 map <leader>oi :JavaImportOrganize<CR>
@@ -257,3 +196,83 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 map <leader>use :UltiSnipsEdit<CR>
+
+"-------------Visuals--------------"
+colorscheme atom-dark                       " set the color scheme to atom-dark
+if has("gui_running")
+    set macligatures                            " add the crazy Fira Code glyphs
+endif
+set guifont=Fira_Code:h12                   " set the font to Fira_Code height 12
+set linespace=5                             " set the line spacing
+
+set number
+nnoremap <leader>n :set nonumber!<CR>
+
+set guioptions-=e                           " remove gui tabs
+set guioptions-=l                           " remove the left scrollbar
+set guioptions-=L                           " remove the left scrollbar in a vertical window
+set guioptions-=r                           " remove the right scrollbar
+set guioptions-=R                           " remove the right scrollbar in a vertical window
+
+hi LineNr guibg=bg
+set foldcolumn=1
+hi foldcolumn guibg=bg
+
+"-------------Searching--------------"
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+" clear highlighting
+nmap <leader>/ :noh<return>
+
+"-------------Splits--------------"
+set splitbelow
+set splitright
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+"-------------Mappings--------------"
+
+" Make it easy to edit the Vimrc file.
+nmap <Leader>ev :tabedit $MYVIMRC<cr>
+
+" jump to last file
+nnoremap <leader><leader><leader> <c-^>
+
+" search for a tag
+nmap <Leader>f :tag<space>
+
+" reindex laravel tags database
+nmap <Leader>rt :!ctags -R --exclude=node_modules --exclude=public --exclude=vendor<cr>
+nmap <Leader>lrt :!ctags -R --exclude=node_modules --exclude=public<cr>
+
+"-------------Plugin Mappings--------------"
+
+" NerdTree - File navigation
+map <Leader>r :NERDTreeToggle<CR>  
+map <Leader>rm :NERDTreeMirror<CR>  
+map <Leader>rf :NERDTreeFind<CR>  
+let NERDTreeShowHidden = 1
+let NERDTreeHijackNetrw = 0
+
+" CommandT
+let g:CommandTWildIgnore=&wildignore . ",**/node_modules*,**/storage*,**app/storage*,**/*.un~,**/*.png"
+map <leader>t :CommandT<CR>
+imap <leader>t <ESC>:CommandT<CR>
+map <leader>ctf :CommandTFlush<CR>
+nnoremap <silent> <leader>b :CommandTMRU<CR>
+
+" Greplace.vim
+set grepprg=ag                                          " use ag for search
+let g:grep_cmd_opts = '--line-numbers --noheading'
+
+"-------------Auto-Commands--------------"
+
+"Automatically source the Vimrc file on save.
+augroup autosourcing
+	autocmd!
+	autocmd BufWritePost .vimrc source %
+augroup END
