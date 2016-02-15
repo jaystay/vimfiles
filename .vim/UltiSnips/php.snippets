@@ -151,7 +151,7 @@ snippet bsfg "Create a bootstrap form group" b
 </div>
 endsnippet
 
-snippet mf "Create a bootstrap model form" b
+snippet bsmf "Create a bootstrap model form" b
 {!! Form::model($$1, [ 'route' => '$1.store', 'class' => 'form-horizontal' ]) !!}
 
 <div class="form-group">
@@ -253,6 +253,38 @@ snippet bootsn "Bootstrap navbar" b
 </nav>
 endsnippet
 
+snippet bootsdr "Bootstrap dropdown" b
+<li class="dropdown">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+	<ul class="dropdown-menu">
+		<li><a href="#">Action</a></li>
+		<li><a href="#">Another action</a></li>
+		<li><a href="#">Something else here</a></li>
+		<li role="separator" class="divider"></li>
+		<li><a href="#">Separated link</a></li>
+		<li role="separator" class="divider"></li>
+		<li><a href="#">One more separated link</a></li>
+	</ul>
+</li>
+endsnippet
+
+snippet fo "Illuminate Form Open" b
+{!! Form::open([ 'route' => '$1', 'files' => true, 'method' => 'POST', 'class' => '' ]) !!}
+$0
+{!! Form::close() !!}
+endsnippet
+
+snippet blc "Blade Comment" b
+{{-- $0 --}}
+endsnippet
+
+snippet blsc "Blade Start Comment" b
+{{--
+endsnippet
+
+snippet blec "Blade End Comment" b
+--}}
+endsnippet
 
 ####################################
 # Routing
@@ -376,6 +408,46 @@ snippet rvc "Return view with data" b
 return view('$1', compact($2));
 endsnippet
 
+snippet compo "Composer Class" b
+<?php namespace App\Services\Composers;
+
+use Illuminate\Contracts\View\View;
+
+class $1Composer {
+
+      /**
+       * Create a new composer.
+       *
+       */
+      public function __construct()
+      {
+      }
+
+      /**
+       * Bind data to the view.
+       *
+       * @param  View  $view
+       * @return void
+       */
+      public function compose(View $view)
+      {
+          $view->with(compact());
+      }
+}
+endsnippet
+
+snippet haf "Stapler Has Attached File" b
+$this->hasAttachedFile('image', [
+	'styles' => [
+		'medium' => '300x300',
+		'thumb' => '100x100',
+	],
+	'default_url' => asset('img/tmp/user-placeholder.png'),
+]);
+
+parent::__construct($attributes);
+endsnippet
+
 ####################################
 # Tests
 ####################################
@@ -385,4 +457,12 @@ public function it_$1()
 {
 	$0
 }
+
+####################################
+# HTML
+####################################
+snippet scr "Script tag" b
+<script>
+	$0
+</script>
 endsnippet
