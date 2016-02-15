@@ -375,3 +375,14 @@ endsnippet
 snippet rvc "Return view with data" b
 return view('$1', compact($2));
 endsnippet
+
+####################################
+# Tests
+####################################
+snippet puf "PHPUnit Test Function" b
+/** @test */
+public function it_$1() 
+{
+	$0
+}
+endsnippet
