@@ -11,9 +11,6 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%0
 set laststatus=2
 set showcmd
 
-set undofile
-
-
 syntax on
 
 " Whitespace stuff
@@ -37,9 +34,6 @@ augroup END
 
 set encoding=utf-8
 
-
-" ack the word under cursor
-nmap <leader>* byw:Ack <C-R>"<CR>
 
 " Filename Tab completion 
 set wildmode=list:longest,list:full
@@ -223,8 +217,27 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
 " clear highlighting
 nmap <leader>/ :noh<return>
+nmap <silent> <BS>  :noh<CR>
+
+" global search/replace with confirm
+nmap  S  :%s//gc<LEFT><LEFT><LEFT>
+
+" global search/replace from a visual with confirm
+nmap <expr>  M  ':%s/' . @/ . '//gc<LEFT><LEFT><LEFT>'
+
+"----Search Plugins----"
+
+" Greplace.vim
+set grepprg=ag                                          " use ag for search
+let g:grep_cmd_opts = '--line-numbers --noheading'
+
+" Ag
+" Ag the word under cursor
+nmap <leader>* byw:Ag <C-R>"<CR>
+
 
 "-------------Splits--------------"
 set splitbelow
@@ -233,6 +246,15 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+
+"-------------Undos--------------"
+
+if has('persistent_undo')
+    set undolevels=5000
+    set undodir=$HOME/.VIM_UNDO_FILES
+    set undofile
+endif
 
 "-------------Mappings--------------"
 
@@ -248,6 +270,21 @@ nmap <Leader>f :tag<space>
 " reindex laravel tags database
 nmap <Leader>rt :!ctags -R --exclude=node_modules --exclude=public --exclude=vendor<cr>
 nmap <Leader>lrt :!ctags -R --exclude=node_modules --exclude=public<cr>
+
+"-------------Laravel-Specific--------------"
+
+" shortcut to routes file
+nmap <Leader>lr :e app/Http/routes.php<cr>
+
+" shortcut to artisan make
+nmap <Leader>lm :!php artisan make:
+
+" shortcut to find a controller
+nmap <Leader>lc :CommandT<cr>app/Http/Controllers/
+nmap <Leader>lm :CommandT<cr>app/
+nmap <Leader>lv :CommandT<cr>resources/views/
+nmap <Leader>la :CommandT<cr>resources/assets/
+
 
 "-------------Plugin Mappings--------------"
 
@@ -265,9 +302,6 @@ imap <leader>t <ESC>:CommandT<CR>
 map <leader>ctf :CommandTFlush<CR>
 nnoremap <silent> <leader>b :CommandTMRU<CR>
 
-" Greplace.vim
-set grepprg=ag                                          " use ag for search
-let g:grep_cmd_opts = '--line-numbers --noheading'
 
 "-------------Auto-Commands--------------"
 
