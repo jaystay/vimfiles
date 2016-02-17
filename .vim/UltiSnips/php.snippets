@@ -38,6 +38,9 @@ public function __construct($1 $$2)
 }
 endsnippet
 
+snippet dpr "Die and print_r" b
+die(print_r($0, true));
+endsnippet
 
 ####################################
 # Eloquent
@@ -447,6 +450,16 @@ $this->hasAttachedFile('image', [
 
 parent::__construct($attributes);
 endsnippet
+
+####################################
+# Tests
+####################################
+snippet puf "PHPUnit Test Function" b
+/** @test */
+public function it_$1() 
+{
+	$0
+}
 
 ####################################
 # HTML

@@ -13,7 +13,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'mattn/emmet-vim'
 Plugin 'wincent/Command-T'
-"Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/ShowMarks'
 Plugin 'Rip-Rip/clang_complete'
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -29,6 +28,12 @@ Plugin 'darthmall/vim-vue'
 Plugin 'tpope/vim-vinegar'
 Plugin 'rking/ag.vim'
 Plugin 'skwp/greplace.vim'
+
+" experimental
+Plugin 'sjl/gundo.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()               " required
 filetype plugin indent on       " required

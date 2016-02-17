@@ -100,42 +100,6 @@ endfunction
 "inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 "inoremap <s-tab> <c-p>
 
-" remove toolbar on macvim gui
-"if has("gui_running")
-  "set guioptions-=T
-
-  "function! SwitchScheme()
-    "if s:currscheme == 0
-      "colorscheme darkblue 
-      "let s:currscheme = 1
-    "elseif s:currscheme == 1
-      "colorscheme morning 
-      "let s:currscheme = 2
-    "elseif s:currscheme == 2
-      "colorscheme murphy 
-      "let s:currscheme = 3
-    "elseif s:currscheme == 3
-      "colorscheme peachpuff 
-      "let s:currscheme = 4
-    "elseif s:currscheme == 4
-      "colorscheme torte 
-      "let s:currscheme = 5
-    "elseif s:currscheme == 5
-      "colorscheme ron 
-      "let s:currscheme = 6
-    "elseif s:currscheme == 6
-      "colorscheme zellner 
-      "let s:currscheme = 0
-    "endif
-  "endfunction
-
-  "let s:currscheme = 0
-  "colorscheme zellner 
-  "nmap <leader>sc :call SwitchScheme()<CR>
-
-"endif
-
-
 " remap : to space
 nnoremap <space> :
 
@@ -239,6 +203,9 @@ let g:grep_cmd_opts = '--line-numbers --noheading'
 nmap <leader>* byw:Ag <C-R>"<CR>
 
 
+" search for a string
+nmap <Leader>f :Ag<space>
+
 "-------------Splits--------------"
 set splitbelow
 set splitright
@@ -265,11 +232,11 @@ nmap <Leader>ev :tabedit $MYVIMRC<cr>
 nnoremap <leader><leader><leader> <c-^>
 
 " search for a tag
-nmap <Leader>f :tag<space>
+nmap <Leader>ft :tag<space>
 
 " reindex laravel tags database
-nmap <Leader>rt :!ctags -R --exclude=node_modules --exclude=public --exclude=vendor<cr>
-nmap <Leader>lrt :!ctags -R --exclude=node_modules --exclude=public<cr>
+nmap <Leader>nvrt :!ctags -R --exclude=node_modules --exclude=public --exclude=vendor<cr>
+nmap <Leader>rt :!ctags -R --exclude=node_modules --exclude=public<cr>
 
 "-------------Laravel-Specific--------------"
 
@@ -297,6 +264,8 @@ let NERDTreeHijackNetrw = 0
 
 " CommandT
 let g:CommandTWildIgnore=&wildignore . ",**/node_modules*,**/storage*,**app/storage*,**/*.un~,**/*.png"
+let g:CommandTMaxHeight=15
+let g:CommandTMatchWindowReverse=1
 map <leader>t :CommandT<CR>
 imap <leader>t <ESC>:CommandT<CR>
 map <leader>ctf :CommandTFlush<CR>
@@ -310,3 +279,9 @@ augroup autosourcing
 	autocmd!
 	autocmd BufWritePost .vimrc source %
 augroup END
+
+"-------------Experimental--------------"
+
+nmap <leader>gt :GundoToggle<CR>
+let g:tagbar_autofocus=1
+nmap <F8> :TagbarToggle<CR>
