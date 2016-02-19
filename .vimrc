@@ -228,6 +228,9 @@ endif
 " Make it easy to edit the Vimrc file.
 nmap <Leader>ev :tabedit $MYVIMRC<cr>
 
+" Make it easy to edit the Vimrc plugins file.
+nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>
+
 " jump to last file
 nnoremap <leader><leader><leader> <c-^>
 
