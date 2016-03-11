@@ -451,6 +451,22 @@ $this->hasAttachedFile('image', [
 parent::__construct($attributes);
 endsnippet
 
+snippet gd "Gate Define" b
+$gate->define('${1:action-name}', function ($user, $2) {
+	return false;
+});
+endsnippet
+
+snippet gdc "Gate Define Class" b
+$gate->define('${1:action-name}', '${2:Class@method}'); 
+endsnippet
+
+snippet igd "If Gate Denies" b
+if (Gate::denies('${1:action-name}', $2)) {
+	abort(403);
+}
+endsnippet
+
 ####################################
 # Tests
 ####################################

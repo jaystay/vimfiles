@@ -34,6 +34,13 @@ Plugin 'sjl/gundo.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'StanAngeloff/php.vim'
+Plugin 'arnaud-lb/vim-php-namespace'
+Plugin 'daylerees/colour-schemes', { 'rtp': 'vim/' }
+Plugin 'stephpy/vim-php-cs-fixer'
+Plugin 'wellle/targets.vim'
 
 call vundle#end()               " required
 filetype plugin indent on       " required

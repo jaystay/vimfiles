@@ -238,8 +238,8 @@ nnoremap <leader><leader><leader> <c-^>
 nmap <Leader>ft :tag<space>
 
 " reindex laravel tags database
-nmap <Leader>nvrt :!ctags -R --exclude=node_modules --exclude=public --exclude=vendor<cr>
-nmap <Leader>rt :!ctags -R --exclude=node_modules --exclude=public<cr>
+nmap <Leader>nvrt :!ctags -R --exclude=node_modules --exclude=public --exclude=vendor --PHP-kinds=+cfi<cr>
+nmap <Leader>rt :!ctags -R --exclude=node_modules --exclude=public --PHP-kinds=+cfi<cr>
 
 "-------------Laravel-Specific--------------"
 
@@ -251,10 +251,34 @@ nmap <Leader>lm :!php artisan make:
 
 " shortcut to find a controller
 nmap <Leader>lc :CommandT<cr>app/Http/Controllers/
+" shortcut to find a model
 nmap <Leader>lm :CommandT<cr>app/
+" shortcut to find a view
 nmap <Leader>lv :CommandT<cr>resources/views/
+" shortcut to find a static asset
 nmap <Leader>la :CommandT<cr>resources/assets/
+" shortcut to find a database migration
+nmap <Leader>ldm :CommandT<cr>database/migrations/
 
+"-------------PHP-Specific--------------"
+
+" import classes under cursor (requires tags file)
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
+
+" expand to fully qualified class name in use statement
+function! IPhpExpandClass()
+    call PhpExpandClass()
+    call feedkeys('a', 'n')
+endfunction
+autocmd FileType php noremap <Leader>uf :call PhpExpandClass()<CR>
+
+"Sort PHP use statements
+"http://stackoverflow.com/questions/11531073/how-do-you-sort-a-range-of-lines-by-length
+vmap <Leader>su ! awk '{ print length(), $0 \| "sort -n \| cut -d\\  -f2-" }'<cr>
 
 "-------------Plugin Mappings--------------"
 
@@ -274,6 +298,9 @@ imap <leader>t <ESC>:CommandT<CR>
 map <leader>ctf :CommandTFlush<CR>
 nnoremap <silent> <leader>b :CommandTMRU<CR>
 
+" php cs fixer
+let g:php_cs_fixer_level = "psr2"
+nnoremap <silent><leader>pf :call PhpCsFixerFixFile()<CR>
 
 "-------------Auto-Commands--------------"
 
