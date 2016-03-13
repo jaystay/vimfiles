@@ -467,6 +467,20 @@ if (Gate::denies('${1:action-name}', $2)) {
 }
 endsnippet
 
+snippet gb "Gate Before" b
+$gate->before(function ($user, $ability) {
+    if ($user->isSuperAdmin()) {
+        return true;
+    }
+});
+endsnippet
+
+snippet ga "Gate After" b
+$gate->after(function ($user, $ability, $result, $arguments) {
+    //
+});
+endsnippet
+
 ####################################
 # Tests
 ####################################
