@@ -451,6 +451,49 @@ $this->hasAttachedFile('image', [
 parent::__construct($attributes);
 endsnippet
 
+<<<<<<< HEAD
+snippet gen "Laravel Generators Initializer" b
+if ($this->app->environment() == 'local') {
+	$this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
+}
+endsnippet
+
+snippet tabf "Schema table foreign key" b
+$table->foreign('$1')
+	  ->references('${2:id}')
+	  ->on('$3')
+	  ->onDelete('cascade');
+endsnippet
+
+snippet tabp "Schema table primary key" b
+$table->primary(['$1', '$2']);
+endsnippet
+
+snippet seed "Laravel DB Seed class" b
+DB::statement("SET foreign_key_checks = 0");
+DB::table('$1')->delete();
+
+$$1 = [
+
+	[ 
+		'id' => 1,
+		$0
+	],
+
+];
+
+DB::table('$1')->insert($$1);
+endsnippet
+
+snippet fac "Laravel Model Factory" b
+factory(App\\$1::class)->create();
+endsnippet
+
+snippet facx "Laravel Model Factory Extra" b
+factory(App\\$1::class)->create()->each(function($model) {
+	$model->$2()->save(factory(App\\$3::class)->make());
+});
+
 snippet gd "Gate Define" b
 $gate->define('${1:action-name}', function ($user, $2) {
 	return false;
