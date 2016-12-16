@@ -206,6 +206,10 @@ nmap <leader>* byw:Ag <C-R>"<CR>
 " search for a string
 nmap <Leader>f :Ag<space>
 
+" tell ag to start search from project root
+let g:ag_working_path_mode="r"
+let g:ag_prg='ag -U -S --vimgrep'
+
 "-------------Splits--------------"
 set splitbelow
 set splitright
@@ -301,6 +305,9 @@ nnoremap <silent> <leader>b :CommandTMRU<CR>
 " php cs fixer
 let g:php_cs_fixer_level = "psr2"
 nnoremap <silent><leader>pf :call PhpCsFixerFixFile()<CR>
+
+" easy motion - incremental search
+" <leader><leader>w
 
 "-------------Auto-Commands--------------"
 
