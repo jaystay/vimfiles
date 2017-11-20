@@ -1,0 +1,141 @@
+####################################
+# General Laravel 
+####################################
+snippet lpr "Laravel Log and print_r" b
+\Log::info(print_r($1, true));
+endsnippet
+
+snippet rv "Return view" b
+return view('$1');
+endsnippet
+
+snippet rvc "Return view with data" b
+return view('$1', compact($2));
+endsnippet
+
+snippet compo "Composer Class" b
+<?php namespace App\Services\Composers;
+
+use Illuminate\Contracts\View\View;
+
+class $1Composer {
+
+      /**
+       * Create a new composer.
+       *
+       */
+      public function __construct()
+      {
+      }
+
+      /**
+       * Bind data to the view.
+       *
+       * @param  View  $view
+       * @return void
+       */
+      public function compose(View $view)
+      {
+          $view->with(compact());
+      }
+}
+endsnippet
+
+snippet stapi "Laravel Stapler Imports" b
+use Codesleeve\Stapler\ORM\EloquentTrait;
+use Codesleeve\Stapler\ORM\StaplerableInterface;
+endsnippet
+
+snippet haf "Stapler Has Attached File" b
+$this->hasAttachedFile('image', [
+	'styles' => [
+		'medium' => '300x300',
+		'thumb' => '100x100',
+	],
+	'default_url' => asset('img/tmp/user-placeholder.png'),
+]);
+
+parent::__construct($attributes);
+endsnippet
+
+snippet gen "Laravel Generators Initializer" b
+if ($this->app->environment() == 'local') {
+	$this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
+}
+endsnippet
+
+snippet tabf "Schema table foreign key" b
+$table->foreign('$1')
+	  ->references('${2:id}')
+	  ->on('$3')
+	  ->onDelete('cascade');
+endsnippet
+
+snippet tabp "Schema table primary key" b
+$table->primary(['$1', '$2']);
+endsnippet
+
+snippet seed "Laravel DB Seed run snippet" b
+DB::statement("SET foreign_key_checks = 0");
+DB::table('$1')->delete();
+
+$$1 = [
+
+	[ 
+		'id' => 1,
+		$0
+	],
+
+];
+
+DB::table('$1')->insert($$1);
+endsnippet
+
+snippet fac "Laravel Model Factory" b
+factory(App\\$1::class)->create();
+endsnippet
+
+snippet facx "Laravel Model Factory Extra" b
+factory(App\\$1::class)->create()->each(function($model) {
+	$model->$2()->save(factory(App\\$3::class)->make());
+});
+
+snippet gd "Gate Define" b
+$gate->define('${1:action-name}', function ($user, $2) {
+	return false;
+});
+endsnippet
+
+snippet gdc "Gate Define Class" b
+$gate->define('${1:action-name}', '${2:Class@method}'); 
+endsnippet
+
+snippet igd "If Gate Denies" b
+if (Gate::denies('${1:action-name}', $2)) {
+	abort(403);
+}
+endsnippet
+
+snippet gb "Gate Before" b
+$gate->before(function ($user, $ability) {
+    if ($user->isSuperAdmin()) {
+        return true;
+    }
+});
+endsnippet
+
+snippet ga "Gate After" b
+$gate->after(function ($user, $ability, $result, $arguments) {
+    //
+});
+endsnippet
+
+snippet usd "Use Soft Deletes" b
+use Illuminate\Database\Eloquent\SoftDeletes; 
+endsnippet
+
+snippet sdd "Soft Deletes Date" b
+protected $dates = ['deleted_at'];
+endsnippet
+
+

@@ -1,0 +1,23 @@
+####################################
+# Routing
+####################################
+snippet rg "Route::get" b
+Route::get('$1', [ 'as' => '$2', 'uses' => '$3' ]);
+endsnippet
+
+snippet rp "Route::post" b
+Route::post('$1', [ 'as' => '$2', 'uses' => '$3' ]);
+endsnippet
+
+snippet rr "Route::resource" b
+Route::resource('$1', '$2Controller', [ 'except' => [ ] ] );
+endsnippet
+
+snippet rougr "Route Group" b
+Route::group([$1], function() {
+	$2
+});
+endsnippet
+
+
+

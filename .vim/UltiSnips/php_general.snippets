@@ -1,0 +1,80 @@
+####################################
+# PHP
+####################################
+snippet p "PHP opening tag" b
+<?php $1
+
+$2
+endsnippet
+
+snippet pc "PHP Class" b
+<?php $1
+
+class $2 {
+
+	$3
+
+}
+endsnippet
+
+snippet = "Double arrow operator" b 
+=> 
+endsnippet
+
+snippet pf "Public function" b
+public function $1()
+{
+$0
+}
+endsnippet
+
+snippet prf "Private function" b
+private function $1()
+{
+$0
+}
+endsnippet
+
+snippet prof "Protected function" b
+protected function $1()
+{
+$0
+}
+endsnippet
+
+snippet sf "Static function" b
+public static function $1()
+{
+$0
+}
+endsnippet
+
+snippet cons "Constructor" b
+public function __construct($1 $$2)
+{
+	$this->$2 = $$2;
+}
+endsnippet
+
+snippet dpr "Die and print_r" b
+die(print_r($0, true));
+endsnippet
+
+snippet pr "print_r" b
+print_r($0);
+endsnippet
+
+snippet vd "var_dump" b
+var_dump($0);
+endsnippet
+
+snippet a "Associative Array" b
+'$1' => [
+	'$2' => '$3',
+],
+endsnippet
+
+snippet f "Associative Array Field" b
+'$1' => '$2',
+endsnippet
+

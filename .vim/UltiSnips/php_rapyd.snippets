@@ -1,0 +1,367 @@
+####################################
+# Rapyd
+####################################
+snippet rtf "Rapyd Text Field" b
+$form->add('$1', '${1/\w+\s*/\u$0/}', 'text');
+endsnippet
+
+snippet ref "Rapyd Enum Field" b
+$form->add('$1', '${1/\w+\s*/\u$0/}', 'select')
+	->option('$2', '${2/\w+\s*/\u$0/}')
+	->option('$3', '${3/\w+\s*/\u$0/}');
+endsnippet
+
+snippet rreq "Rapyd Rule Required" i
+->rule('required');
+endsnippet
+
+snippet rdf "Rapyd Date Field" b
+$form->add('$1', '${1/\w+\s*/\u$0/}', 'date')->format('m/d/Y', 'en');
+endsnippet
+
+snippet raprou "Add routes for a rapyd controlled crud object" b
+Route::resource('users', 'UsersController', [ 'as' => 'admin' ]);
+
+// Required for the CRUD package
+Route::post('users/{userId}/edit', 'UsersController@edit');
+Route::post('users/create', 'UsersController@create');
+endsnippet
+
+snippet raparou "Add api routes for rapyd datatables" b
+/************** AJAX API *****************/
+Route::group(['prefix' => 'admin/api', 'namespace' => 'Admin\Api', 'middleware' => ['auth.admin']], function () {
+    Route::get('/users', ['as' => 'admin.api.users.index', 'uses' => 'UsersController@index']);
+});
+endsnippet
+
+snippet rapjs "Insert JS footer for rapyd" b
+
+    <script src="https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+
+    <script src="{{ mix('/js/admin.js') }}"></script>
+
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap4.min.js"></script>
+
+    {{-- @todo see if CSS/JS can be separated so we can place CSS in <head> (if any is actually being inserted) --}}
+    {!! Rapyd::head() !!}
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.datatable').each(function () {
+                var url = $(this).data('url');
+
+                $(this).DataTable({
+                    ajax: url
+                });
+            });
+        })
+    </script>
+endsnippet
+
+snippet rapcss "Insert css header for rapyd" b
+	<link rel="stylesheet" href="{{ mix('/css/admin.css') }}">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.min.css">
+endsnippet
+
+snippet rapctrl "Generate a rapyd crud admin controller" b
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use File;
+use Excel;
+use Storage;
+use DataForm;
+use App\User;
+use App\Http\Controllers\Controller;
+
+class UsersController extends Controller
+{
+    public function index()
+    {
+        $userCount = User::count();
+
+        return view('admin.users.index', compact('userCount'));
+    }
+
+    public function show($userId)
+    {
+        $user = User::findOrFail($userId);
+
+        return view('admin.users.show', compact('user'));
+    }
+
+    public function edit($userId)
+    {
+        $user = User::findOrFail($userId);
+        $form = DataForm::source($user);
+
+        $form = $this->createForm($form);
+        // TODO
+        //$form->add('profile_image', 'Profile Image', 'image')->move('images/uploads/');
+        $form->submit('Update User');
+
+        $form->saved(function () use ($form) {
+
+            //$this->saveProfileImage($form);
+
+            flash()->success('User has been updated successfully!');
+            return redirect()->route('admin.users.index');
+        });
+
+        $form->build();
+
+        return $form->view('admin.users.edit', compact('user', 'form'));
+    }
+
+    public function create()
+    {
+        $form = $this->createForm(DataForm::source(new User));
+        // TODO
+        //$form->add('profile_image', 'Profile Image', 'image')->move('images/uploads/');
+        $form->submit('Create User');
+
+        $form->saved(function () use ($form) {
+
+            //$this->saveProfileImage($form);
+
+            // Redirect the user with a success message
+            flash()->success('User has been created successfully!');
+            return redirect()->route('admin.users.index');
+        });
+
+        $form->build();
+
+        return $form->view('admin.users.create', compact('form'));
+    }
+
+    protected function createForm($form)
+    {
+        $form->add('first_name', 'First Name', 'text')->rule('required');
+        $form->add('last_name', 'Last Name', 'text')->rule('required');
+        $form->add('email', 'Email Address', 'text')->rule('required');
+        $form->add('role', 'Role', 'select')->option('user', 'User')->option('admin', 'Admin');
+
+        return $form;
+    }
+
+    private function saveProfileImage($form)
+    {
+        /*
+         * TODO
+        if ($form->model->profile_image) {
+
+            // Get the location of the stored profile image
+            $filePath = base_path() . '/public/images/uploads/' . $form->model->profile_image;
+
+            // Upload the file to Amazon S3
+            $fileContents = file_get_contents($filePath);
+
+            $s3FileName = md5($filePath);
+            $s3 = Storage::disk('s3');
+            $s3->put($s3FileName, $fileContents, 'public');
+
+            // Set the profile image
+            $form->model->setProfileImage($s3->url($s3FileName));
+
+            // Delete the original file
+            File::delete($filePath);
+        }
+         */
+    }
+}
+endsnippet
+
+snippet rapactrl "Add a rapyd admin api controller for databables" b
+<?php
+
+namespace App\Http\Controllers\Admin\Api;
+
+use App\User;
+use App\Http\Controllers\Controller;
+
+class UsersController extends Controller
+{
+    public function index()
+    {
+        $users = User::all()->map(function ($user) {
+            return [
+                $user->id,
+                $user->image_url, // TODO
+                $user->full_name,
+                $user->email,
+                $user->role,
+                $user->created_at ? $user->created_at->format('m/d/Y') : 'Unknown',
+                $user->last_login ? $user->last_login->format('m/d/Y H:i') : 'Never',
+                $user->last_login_ip,
+                $user->total_logins,
+                view('admin.users._table-actions', compact('user'))->render()
+            ];
+        });
+
+        return response()->json(['data' => $users]);
+    }
+}
+endsnippet
+
+snippet raptabac "Add a rapyd table actions partial" b
+<div class="btn-group">
+    <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-primary btn-sm" title="View User">
+        <i class="fa fa-eye"></i>
+    </a>
+
+    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-secondary btn-sm" title="Edit User">
+        <i class="fa fa-pencil"></i>
+    </a>
+</div>
+endsnippet
+
+snippet rapcrea "Add a rapyd create view" b
+@extends ('admin.layouts.master')
+
+@section ('body-class', '@parent admin-users-create')
+
+@section ('title')
+    Admin - Users @parent
+@stop
+
+@section ('content')
+    <div class="container">
+        <small class="admin-back"><a href="{{ route('admin.users.index') }}">&larr; Back to users</a></small><br>
+        <h2>Creating a new user</h2><hr>
+
+        {!! $form !!}
+    </div>
+@stop
+endsnippet
+
+snippet rapedi "Add a rapyd edit view" b
+@extends ('admin.layouts.master')
+
+@section ('body-class', '@parent admin-users-edit')
+
+@section ('title')
+    Admin - Users @parent
+@stop
+
+@section ('content')
+    <div class="container">
+        <small class="admin-back"><a href="{{ route('admin.users.index') }}">&larr; Back to users</a></small><br>
+        <h2>Editing {{ $user->full_name }} <small class="text-muted">(#{{ $user->id }})</small></h2><hr>
+
+        {!! $form !!}
+    </div>
+@stop
+endsnippet
+
+snippet rapind "Add a rapyd index view" b
+@extends ('admin.layouts.master')
+
+@section ('body-class', '@parent admin-users-index')
+
+@section ('title')
+    Admin - Users @parent
+@stop
+
+@section ('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>
+                    HBN Users ({{ $userCount }} total)
+                    <a href="{{ route('admin.users.create') }}" class="btn btn-sm btn-secondary"><i class="fa fa-plus"></i> New User</a>
+                </h3>
+
+                <br>
+
+                <table cellspacing="0" class="table table-bordered table-striped datatable" data-url="{{ route('admin.api.users.index') }}">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Join Date</th>
+                            <th>Last Login</th>
+                            <th>Last Login IP</th>
+                            <th>Total Logins</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+@stop
+endsnippet
+
+snippet rapshow "Add a rapyd show view" b
+@extends ('admin.layouts.master')
+
+@section ('body-class', '@parent admin-users-show')
+
+@section ('title')
+    Admin - Users @parent
+@stop
+
+@section ('content')
+    <div class="container">
+        <small class="admin-back"><a href="{{ route('admin.users.index') }}">&larr; Back to users</a></small><br>
+
+        <h2>
+            {{ $user->full_name }} <small class="text-muted">(#{{ $user->id }})</small>
+            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-secondary"><i class="fa fa-pencil"></i> Edit</a>
+        </h2>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-2">
+                <img src="{{ $user->image_url }}" style="max-width: 100%">
+            </div>
+
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-4">
+                        <dl class="dl-horizontal">
+                            <dt>User Role</dt>
+                            <dd>{{ ucfirst($user->role) }}</dd>
+
+                            <dt>Email Address</dt>
+                            <dd>{{ $user->email }}</dd>
+                        </dl>
+                    </div>
+
+                    <div class="col-md-4">
+                        <dl class="dl-horizontal">
+                            <dt>Last Login Date</dt>
+
+                            @if ($user->last_login)
+                                <dd>{{ $user->last_login->diffForHumans() }}</dd>
+                            @else
+                                <dd class="text-muted">Never</dd>
+                            @endif
+
+                            <dt>Join Date</dt>
+                            <dd title="{{ $user->created_at->diffForHumans() }}">{{ $user->created_at->diffForHumans() }}</dd>
+
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@stop
+endsnippet
+

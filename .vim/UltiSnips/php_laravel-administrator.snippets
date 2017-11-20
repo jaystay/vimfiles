@@ -1,0 +1,86 @@
+####################################
+# Laravel administrator
+####################################
+snippet laf "Laravel Admin Field" b
+'$1' => [
+	'title' => '$2',
+	'type' => '$3',
+	'editable' => true
+],
+endsnippet
+
+snippet larf "Laravel Admin Relationship Field" b
+'$1' => [
+	'title' => '$2',
+	'type' => 'relationship',
+	'name_field' => '$3',
+	'options_sort_field' => '$4',
+
+],
+endsnippet
+
+snippet lam "Laravel Admin Model" b
+<?php 
+
+return [
+  'title' => '$1',
+  'single' => '$2',
+  'model' => 'App\\$3',
+  'form_width' => 700,
+
+  'rules' => [
+  ],
+
+  'messages' => [
+  ],
+
+
+//  'action_permissions'=> array(
+//	  'delete' => function($model)
+//	  {
+//		  return Auth::user()->has_role('developer');
+//	  }
+//  ),
+
+//  'actions' => [
+//    'action_name' => [
+//        'title' => '',
+//        'messages' => [
+//            'active' => 'Working..',
+//            'success' => 'Done',
+//            'error' => 'There was an error while',
+//        ],
+//        //the model is passed to the closure
+//        'action' => function($model) {
+//
+//			return true;
+//       }
+//    ],
+//   ],
+
+// 'filters' => [
+//	  'field' => [
+//		  'title' => 'Title',
+//	  ],
+// ],
+
+  'columns' => [ 
+
+	'id' => [
+	  'title' => 'ID',
+	],
+
+  ],
+
+  'edit_fields' => [
+
+	  'name' => [
+	  	'title' => 'Name',
+	  	'type' => 'text',
+	  	'editable' => true
+	  ],
+  ],
+];
+endsnippet
+
+

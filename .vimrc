@@ -187,7 +187,7 @@ nmap <leader>/ :noh<return>
 nmap <silent> <BS>  :noh<CR>
 
 " global search/replace with confirm
-nmap  S  :%s//gc<LEFT><LEFT><LEFT>
+nmap  SS  :%s//gc<LEFT><LEFT><LEFT>
 
 " global search/replace from a visual with confirm
 nmap <expr>  M  ':%s/' . @/ . '//gc<LEFT><LEFT><LEFT>'
