@@ -11,8 +11,17 @@ $form->add('$1', '${1/\w+\s*/\u$0/}', 'select')
 	->option('$3', '${3/\w+\s*/\u$0/}');
 endsnippet
 
+snippet rcef "Rapyd Textarea Field" b
+$form->add('$1', '${1/\w+\s*/\u$0/} <div class="text-muted"><small>$2</small></div>', '\App\Extensions\Rapyd\DataForm\Field\CKEditor');
+endsnippet
+
+snippet rrsf "Rapyd Select Relation Field" b
+$form->add('$1', '${1/\w+\s*/\u$0/}', 'select')
+	->options($2);
+endsnippet
+
 snippet rreq "Rapyd Rule Required" i
-->rule('required');
+->rule('required')
 endsnippet
 
 snippet rdf "Rapyd Date Field" b

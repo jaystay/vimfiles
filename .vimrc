@@ -11,6 +11,14 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%0
 set laststatus=2
 set showcmd
 
+let php_html_load=0
+let php_html_in_heredoc=0
+let php_html_in_nowdoc=0
+
+let php_sql_query=0
+let php_sql_heredoc=0
+let php_sql_nowdoc=0
+
 syntax on
 
 " Whitespace stuff
@@ -53,6 +61,13 @@ noremap <S-down> :source ~/.vimrc<CR>
 
 " select all
 map <Leader>a ggVG
+
+" toggle syntax
+map <Leader>s :if exists("g:syntax_on") <Bar>
+    \ syntax off <Bar>
+    \ else <Bar>
+    \ syntax on <Bar>
+    \ endif <CR>
 
 " folding
 map <Leader>fi :set foldmethod=indent<CR>
@@ -150,8 +165,8 @@ nnoremap <leader>p :call pdv#DocumentWithSnip()<CR>
 
 " ultisnips
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 map <leader>use :UltiSnipsEdit<CR>
 
