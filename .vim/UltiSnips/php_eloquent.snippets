@@ -4,7 +4,7 @@
 snippet hasm "Eloquent hasMany()" b
 public function $1()
 {
-	return $this->hasMany($2::class);
+	return $this->hasMany($2::class$3);
 }
 endsnippet
 	
@@ -25,7 +25,7 @@ endsnippet
 snippet beltom "Eloquent belongsToMany" b
 public function $1()
 {
-	return $this->belongsToMany($2::class);
+	return $this->belongsToMany($2::class$3);
 }
 endsnippet
 

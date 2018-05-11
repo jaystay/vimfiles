@@ -2,6 +2,11 @@ set nocompatible                " use latest vim settings, not vi
 set noswapfile
 set nobackup
 
+if has("gui_running")
+    set rubydll=/usr/local/lib/libruby.2.4.2.dylib
+endif
+
+
 so ~/.vim/plugins.vim
 
 " Leader
@@ -10,6 +15,8 @@ let mapleader = ","
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v]\ [%p%%]\ [LEN=%L]
 set laststatus=2
 set showcmd
+
+filetype plugin indent on
 
 let php_html_load=0
 let php_html_in_heredoc=0
@@ -70,8 +77,8 @@ map <Leader>s :if exists("g:syntax_on") <Bar>
     \ endif <CR>
 
 " folding
-map <Leader>fi :set foldmethod=indent<CR>
-map <Leader>fs :set foldmethod=syntax<CR>
+set foldmethod=marker
+set foldmarker=/*,*/
 
 function! TabLeft()
   let tab_number = tabpagenr() - 1
